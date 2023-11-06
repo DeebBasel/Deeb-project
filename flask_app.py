@@ -12,12 +12,12 @@ app = Flask(__name__, template_folder='templateFiles', static_folder='staticFile
 # @app.route('/')
 # def welcome():
 #     return "This is the home page of Flask Application"
-def naseem_sum(num1, num2):
+def add(num1, num2):
         return num1 + num2
 
 @app.route('/')
 def home():
-    return 'please navigate to your name'
+    return render_template('homepage.html')
 
 @app.route('/nermeen')
 def nermeen():
@@ -29,15 +29,9 @@ def fadi():
 
 @app.route('/naseem', methods=['GET','POST'])
 def naseem():
-    num1 = request.args.get('num1', 1)
-    num2 = request.args.get('num2', 1)
-    try:
-        num1 = int(num1)
-        num2 = int(num2)
-    except:
-        print('the inputs must be integers')
-
-    return naseem_sum(num1, num2)
+    num1 = request.form.get('num1', type=int)
+    num2 = request.form.get('num2', type=int)
+    return add(num1, num2)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
